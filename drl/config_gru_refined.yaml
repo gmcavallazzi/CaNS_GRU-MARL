@@ -1,0 +1,78 @@
+# GRU-based MARL for turbulent channel flow control
+# Blowing/suction at wall patches with ring observations
+
+grid:
+  nx: 64          # streamwise grid points (also supports 192)
+  ny: 64          # spanwise grid points (also supports 192)
+
+control:
+  patch_size: 4           # grid points per patch side (4x4 = 16 points per agent)
+  ring_radius: 1          # 1 = 3x3 neighborhood of patches (12x12 observation)
+  action_scaling: 0.064   # maps [-1,1] to [-u_tau, u_tau]
+  smooth_sigma: 1.5       # Gaussian smoothing sigma in grid points
+  scaling_factor: 0.8     # multiplier for actions sent to CaNS
+
+observation:
+  include_prev_action: true
+  normalize: true         # subtract mean, divide by om_max
+
+action:
+  om_max: 0.064           # normalization scale (~u_tau)
+
+reward:
+  dpdx:
+    uncontrolled: -0.0038   # baseline pressure gradient (no control)
+    target: -0.002          # target for good control
+  dpdx_uncontrolled: -0.004096  # reference dpdx for drag reduction % logging
+  global_weight: 10.0       # reward amplification factor
+
+net_arch:
+  actor_channels: [16, 32]
+  critic_conv: [32, 64, 32]
+  critic_mlp: [256, 128]
+
+recurrence:
+  enabled: true
+  hidden_size: 64
+  sequence_length: 16
+  burn_in_length: 4
+
+maddpg:
+  actor_lr: 0.00003
+  critic_lr: 0.0005
+  tau: 0.002
+  gamma: 0.98
+  batch_size: 128
+  gradient_steps: 2
+  train_freq: 20
+  gradient_clip: 0.5
+  lambda_temporal: 0.3
+  lambda_spatial: 0.25
+  lambda_zero: 2.0
+  lambda_energy: 0.3
+  reg_target_ratio: 0.05
+  differentiable_zero_mean: true
+  action_noise:
+    initial_sigma: 0.15
+    final_sigma: 0.01
+    decay_episodes: 150
+
+training:
+  start_episode_length: 1800
+  save_freq: 3600
+  max_episodes: 500
+  buffer_max_episodes: 15   # reduce to 15-20 for 192x192
+  learning_starts: 1800     # 2 full episodes warmup
+  gradient_clip: 0.5
+
+total_timesteps: 1800000
+
+field_shift:
+  enable: true
+  dt: 0.425
+  domain_size:
+    Lx: 2.67
+    Ly: 0.8
+
+logging:
+  snapshot_fracs: [0.1, 0.5, 0.9]   # capture u, w, action fields at these episode fractions

@@ -1,0 +1,5 @@
+&opp
+  z_sense = 21
+  n_walls = 1
+  alpha_opp = 1.0
+/

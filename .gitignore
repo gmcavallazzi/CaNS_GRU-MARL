@@ -1,0 +1,25 @@
+# Fortran build artefacts
+*.o
+*.mod
+*.smod
+build/
+cans
+src/cans
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# DRL run outputs / results (never commit)
+drl/checkpoints_*/
+drl/logs_*/
+drl/eval_*/
+drl/data/
+R-*.out
+E-*.err
+*.csv
+
+# editors / OS
+.vscode/
+.DS_Store

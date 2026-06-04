@@ -1,0 +1,24 @@
+# Python dependencies for the multi-agent DRL framework in drl/.
+# Pinned to the versions used in the paper (Python 3.12.13).
+# Install into a dedicated environment (the launch scripts assume a conda
+# env named "cans_drl"). The CaNS solver itself is Fortran and has
+# system-level dependencies (MPI, FFTW3 or cuFFT, a Fortran compiler) that
+# are NOT installed through pip — see the Build section of the README.
+#
+# torch was built against CUDA 12.8 (the installed wheel is torch==2.10.0+cu128).
+# Install it from the matching PyTorch index, e.g.
+#   pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cu128
+# then install the rest with: pip install -r requirements.txt
+#
+# mpi4py builds against the system MPI, so an MPI implementation must be
+# available before installing it.
+
+torch==2.10.0
+numpy==2.4.2
+scipy==1.17.1
+matplotlib==3.10.8
+pettingzoo==1.25.0
+gymnasium==1.2.3
+mpi4py==4.1.1
+tensorboard==2.20.0
+pyyaml==6.0.3

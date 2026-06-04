@@ -1,0 +1,31 @@
+&dns
+ng(1:3) = 64, 64, 100
+l(1:3) = 2.67, 0.8, 1.
+gtype = 2, gr = 1.5
+cfl = 0.35, dtmax = 0.06, dt_f = 0.0085
+visci = 2870.
+inivel = 'poi'
+is_wallturb = T
+nstep = 100000000, time_max = 1000000., tw_max = 0.1
+stop_type(1:3) = T, F, F
+restart = T, is_overwrite_save = T
+nsaves_max = 10
+icheck = 10, iout0d = 20, iout1d = 0, iout2d = 0, iout3d = 0, isave = 0
+cbcvel(0:1,1:3,1) = 'P','P',  'P','P',  'D','N'
+cbcvel(0:1,1:3,2) = 'P','P',  'P','P',  'D','N'
+cbcvel(0:1,1:3,3) = 'P','P',  'P','P',  'D','D'
+cbcpre(0:1,1:3)   = 'P','P',  'P','P',  'N','N'
+bcvel(0:1,1:3,1) =  0.,0.,   0.,0.,   0.,0.
+bcvel(0:1,1:3,2) =  0.,0.,   0.,0.,   0.,0.
+bcvel(0:1,1:3,3) =  0.,0.,   0.,0.,   0.,0.
+bcpre(0:1,1:3) =    0.,0.,   0.,0.,   0.,0.
+is_forced(1:3) = T, F, F
+velf(1:3) = 1., 0., 0.
+bforce(1:3) = 0., 0., 0.
+dims(1:2) = 0, 0
+\
+
+&cudecomp
+cudecomp_t_comm_backend = 0, cudecomp_is_t_enable_nccl = T, cudecomp_is_t_enable_nvshmem = T
+cudecomp_h_comm_backend = 0, cudecomp_is_h_enable_nccl = T, cudecomp_is_h_enable_nvshmem = T
+\

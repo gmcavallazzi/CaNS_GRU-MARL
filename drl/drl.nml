@@ -1,0 +1,10 @@
+&opp_drl
+n_act = 1.0
+n_eps = 25600.0
+bnx = 8
+bny = 8
+drl_inc = 1
+n_agents = 4096
+num_files = 9
+n_act_interval = 50
+/
