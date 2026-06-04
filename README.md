@@ -5,6 +5,13 @@ Code accompanying the paper
 > **Drag reduction or reward hacking? Recurrent multi-agent reinforcement learning that earns its reward**
 > G. M. Cavallazzi, M. Pérez Cuadrado, A. Pinelli.
 
+![Setup and the corrected control loop](docs/overview.png)
+
+*The turbulent channel with patch blowing/suction and the detection-plane field
+the policy reads; every patch runs the same GRU actor, a central critic supplies
+the training gradient, and the three numbered safeguards address credit
+assignment, partial observability, and the wall-power the drag proxy hides.*
+
 It contains a modified version of the [CaNS](https://github.com/CaNS-World/CaNS)
 finite-difference Navier–Stokes solver, extended with a wall-actuation interface,
 and the multi-agent reinforcement-learning framework (GRU-MARL) used to train and
